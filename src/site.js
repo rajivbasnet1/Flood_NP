@@ -20,19 +20,22 @@ import { TOLL } from './data.js';
 // village-by-village breakdown has been published, and inventing one would be
 // worse than showing nothing.
 const IMPACT=[
- {s:0,     name:'Failure scar',            kind:'scar', note:'North flank of Langtang Lirung, ~5,000 m'},
- {s:5400,  name:'Debris dam',              kind:'site', note:'Lhende Khola blocked, then breached'},
- {s:21780, name:'Gyirong Port / Rasuwagadhi', kind:'town', note:'Border crossing at the confluence'},
- {s:24500, name:'Timure',                  kind:'town', note:'Confined bedrock reach'},
- {s:27400, name:'Rasuwagadhi hydropower',  kind:'infra',note:'Schematic site'},
- {s:37100, name:'Syafrubesi',              kind:'town', note:'Bhote Koshi / Trishuli gorge'},
- {s:52000, name:'Mailung',                 kind:'town', note:'Confined gorge'},
- {s:68940, name:'Betrawati',               kind:'town', note:'Valley widens'},
- {s:76200, name:'Trishuli Bazaar',         kind:'town', note:'27.9227° N, 85.1462° E'},
- {s:81800, name:'Devighat',                kind:'infra',note:'27.8882° N, 85.1340° E'},
- {s:84500, name:'Bidur',                   kind:'town', note:'Town centre sits back from the channel'},
+ {s:0,      name:'Failure scar',            kind:'scar', note:'North flank of Langtang Lirung, ~5,000 m · 16,400 ft'},
+ {s:5400,   name:'Debris dam',              kind:'site', note:'Lhende Khola blocked, then breached'},
+ {s:21510,  name:'Gyirong Port / Rasuwagadhi', kind:'town', note:'Border crossing at the confluence'},
+ {s:23960,  name:'Timure',                  kind:'town', note:'Confined bedrock reach'},
+ {s:27400,  name:'Rasuwagadhi hydropower',  kind:'infra',note:'Schematic site'},
+ {s:36790,  name:'Syafrubesi',              kind:'town', note:'Bhote Koshi / Trishuli gorge'},
+ {s:52000,  name:'Mailung',                 kind:'town', note:'Confined gorge'},
+ {s:68850,  name:'Betrawati',               kind:'town', note:'Valley widens'},
+ {s:76620,  name:'Trishuli Bazaar',         kind:'town', note:'27.9227° N, 85.1462° E'},
+ {s:81810,  name:'Devighat',                kind:'infra',note:'27.8882° N, 85.1340° E'},
+ {s:84500,  name:'Bidur',                   kind:'town', note:'Town centre sits back from the channel'},
+ {s:103190, name:'Galchhi',                 kind:'town', note:'Dhading · ~9 m · 30 ft rise reported in 30 minutes'},
+ {s:118000, name:'Krishnabhir',             kind:'infra',note:'Prithvi Highway sank into the river'},
+ {s:124600, name:'Malekhu',                 kind:'town', note:'Dhading · 27.8097° N, 84.8290° E'},
+ {s:132270, name:'Benighat',                kind:'town', note:'Dhading · Budhi Gandaki confluence'},
 ];
-
 function buildSite(){
  // ── reported toll ──
  const grid=$('tollgrid');
@@ -55,12 +58,14 @@ function buildSite(){
 // disagree about where the river goes.
 function buildFlatMap(){
  const svg=$('flatmap');
- const W=760,H=470,PAD=42;
+ // FOOT reserves room under the corridor for the caption and for labels on the
+ // lower reach, which runs east-west across the bottom of the frame.
+ const W=760,H=520,PAD=42,FOOT=44;
  let mnx=Infinity,mxx=-Infinity,mnz=Infinity,mxz=-Infinity;
  for(let i=0;i<CN;i++){mnx=Math.min(mnx,cx[i]);mxx=Math.max(mxx,cx[i]);mnz=Math.min(mnz,cz[i]);mxz=Math.max(mxz,cz[i]);}
- const sc=Math.min((W-PAD*2)/(mxx-mnx),(H-PAD*2)/(mxz-mnz));
+ const sc=Math.min((W-PAD*2)/(mxx-mnx),(H-PAD*2-FOOT)/(mxz-mnz));
  const px=x=>PAD+(x-mnx)*sc+((W-PAD*2)-(mxx-mnx)*sc)/2;
- const py=z=>PAD+(z-mnz)*sc+((H-PAD*2)-(mxz-mnz)*sc)/2;
+ const py=z=>PAD+(z-mnz)*sc+((H-PAD*2-FOOT)-(mxz-mnz)*sc)/2;
 
  const parts=[];
  // Corridor band, to show the extent the model covers.
@@ -80,13 +85,13 @@ function buildFlatMap(){
  parts.push(`<path d="${d}" fill="none" stroke="#c88f4e" stroke-width="7" stroke-linecap="round" opacity=".10"/>`);
 
  // Kilometre ticks every 10 km.
- for(let km=10;km<Math.floor(LENGTH/1000);km+=10){
+ for(let km=20;km<Math.floor(LENGTH/1000);km+=20){
   const s=km*1000;
   const a=station(s,0,0), n=station(s,900,0);
   const ux=(px(n.x)-px(a.x)), uy=(py(n.z)-py(a.z));
   const l=Math.hypot(ux,uy)||1;
   parts.push(`<line x1="${(px(a.x)-ux/l*4).toFixed(1)}" y1="${(py(a.z)-uy/l*4).toFixed(1)}" x2="${(px(a.x)+ux/l*4).toFixed(1)}" y2="${(py(a.z)+uy/l*4).toFixed(1)}" stroke="#ffffff33" stroke-width="1.2"/>`);
-  parts.push(`<text x="${(px(a.x)+ux/l*13).toFixed(1)}" y="${(py(a.z)+uy/l*13+3).toFixed(1)}" fill="#5e5e5e" font-size="8.5" font-family="ui-monospace,monospace" text-anchor="middle">${km}</text>`);
+  parts.push(`<text x="${(px(a.x)+ux/l*13).toFixed(1)}" y="${(py(a.z)+uy/l*13+3).toFixed(1)}" fill="#5e5e5e" font-size="8.5" font-family="ui-monospace,monospace" text-anchor="middle">${km}km/${Math.round(km/1.609344)}mi</text>`);
  }
 
  // Impact sites. Labels alternate away from a neighbour that is too close,
@@ -98,8 +103,11 @@ function buildFlatMap(){
   const X=px(q.x); let Y=py(q.z);
   const isScar=p.kind==='scar';
   const flip=X>W*0.55;
-  let ty=Y+3.4;
-  for(const q2 of placed) if(Math.abs(q2.x-X)<150&&Math.abs(q2.y-ty)<13) ty=q2.y+13;
+  // Near the bottom the corridor runs east-west, so a downward stack would
+  // walk the labels straight off the card. Stack upward there instead.
+  const up=Y>H-PAD-FOOT-34;
+  let ty=up?Y-9:Y+3.4;
+  for(const q2 of placed) if(Math.abs(q2.x-X)<150&&Math.abs(q2.y-ty)<13) ty=up?q2.y-13:q2.y+13;
   placed.push({x:X,y:ty});
   if(isScar){
    parts.push(`<circle cx="${X.toFixed(1)}" cy="${Y.toFixed(1)}" r="5" fill="none" stroke="#ffffff" stroke-width="1.6"/>`);
@@ -119,7 +127,7 @@ function buildFlatMap(){
  parts.push(`<g transform="translate(${bx.toFixed(1)},${by.toFixed(1)}) rotate(${ang.toFixed(1)})">
   <path d="M0,0 L-9,-4 L-9,4 Z" fill="#c88f4e"/></g>`);
  parts.push(`<text x="${PAD}" y="${H-14}" fill="#5e5e5e" font-size="10" font-family="ui-monospace,monospace">
-  93.1 km of traced channel · water ran north-east to south-west, from the scar to Devighat</text>`);
+  141.2 km · 87.8 mi of traced channel · water ran north-east to south-west, from the scar into Dhading</text>`);
 
  svg.innerHTML=parts.join('');
 }

@@ -157,7 +157,7 @@ function wireUI() {
     if (k === 'f' || k === 'F') { cancelTour(); frameRoute(); return; }
     if (k === 'l' || k === 'L') { CAM.followFront = !CAM.followFront; $('followBtn').setAttribute('aria-pressed', String(CAM.followFront)); cancelTour(); return; }
     if (k === 't' || k === 'T') { $('tourBtn').click(); return; }
-    if (k >= '1' && k <= '5') { cancelTour(); gotoPreset(Number(k) - 1); return; }
+    if (k >= '1' && k <= '6') { cancelTour(); gotoPreset(Number(k) - 1); return; }
   });
 }
 

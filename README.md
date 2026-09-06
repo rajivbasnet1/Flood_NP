@@ -12,13 +12,16 @@ A labelled scientific reconstruction of the glacier collapse, debris dam, breach
 ![Hero section: headline, reported toll figures, and a wireframe of the corridor](docs/screenshots/01-hero.png)
 
 ### Where the flood went
-![Flat plan of the 93 km corridor with settlements that lay in the flow path marked](docs/screenshots/02-toll-map.png)
+![Flat plan of the 141 km corridor, from the failure scar to Benighat in Dhading, with settlements that lay in the flow path marked](docs/screenshots/02-toll-map.png)
 
 ### The 3D reconstruction, mid-corridor
 ![The bounded relief model, orbitable, with the flood band running through the gorge](docs/screenshots/03-model-flood.png)
 
 ### The border reach, close in
 ![Camera preset at the Rasuwagadhi border confluence, showing the flood at valley scale](docs/screenshots/04-model-border.png)
+
+### The Dhading reach
+![The model at Galchhi, where a rise of about 9 m in 30 minutes was reported](docs/screenshots/08-model-dhading.png)
 
 ### Analysis — what comes next
 ![Two-column article on the hazard outlook for the corridor](docs/screenshots/05-future.png)
@@ -33,10 +36,11 @@ A labelled scientific reconstruction of the glacier collapse, debris dam, breach
 
 ## Key features
 
-- **A real elevation grid, not a procedural mountain.** Terrain comes from a public-domain corridor-space grid (AWS Terrain Tiles, SRTM/ALOS-derived) covering 93.08 km of channel and 4.2 km either side, at roughly 91 m along the channel and 38 m across.
-- **A traced channel, not a hand-drawn one.** The centreline was found by priority-flood depression filling and steepest-descent flow routing through that grid, starting from the failure scar. Checked independently: the traced Rasuwagadhi confluence lands 29 m from its published coordinate, Syafrubesi 115 m, Betrawati 113 m.
+- **A real elevation grid, not a procedural mountain.** Terrain comes from a public-domain corridor-space grid (AWS Terrain Tiles, SRTM/ALOS-derived) covering **141.22 km · 87.75 mi** of channel — from the failure scar to Benighat in Dhading district — and 4.2 km · 2.6 mi either side, at roughly 92 m · 302 ft along the channel and 38 m · 125 ft across.
+- **A traced channel, not a hand-drawn one.** The centreline was found by priority-flood depression filling and steepest-descent flow routing through that grid, starting from the failure scar. Checked independently against published coordinates: Rasuwagadhi 23 m, Syafrubesi 67 m, Betrawati 82 m, Devighat 127 m, Galchhi 645 m, Benighat 300 m.
 - **A free-orbit 3D model in a box**, not a full-bleed canvas — drag to orbit, scroll to zoom toward the cursor, scrub the timeline in either direction with exact state restoration (nothing is baked forward-only).
 - **A GPU flow solver** carrying depth, a sediment proxy and speed around timing anchored to the one sourced figure (the ~7-minute arrival at the border), with cross-channel superelevation on bends, run-up in constrictions, and backwater at the modelled blockage.
+- **Every distance in both units.** Readouts, the scale bar, the corridor map ticks, the kilometre marks in the 3D scene and the sources panel all carry SI and US customary together — `124.6 km · 77.4 mi`, `353 m · 1,158 ft`, `8.8 m/s · 20 mph`.
 - **The reported toll, sourced and dated**, shown once in the hero and nowhere inside the reconstruction.
 - **A flat corridor map** marking settlements that lay in the flow path — explicitly *not* a per-place death count, because no village-by-village breakdown has been published.
 - **A sources panel** inside the model listing every hard number on the page with where it came from, next to a list of what is modelled rather than measured.
@@ -78,7 +82,7 @@ src/
   util.js               helpers, the deterministic random stream
   state.js              playback + quality state, in one object
   data.js               sources, modelled assumptions, reported toll
-  terrain-data.js        the embedded elevation grid (~186 KB base64)
+  terrain-data.js        the embedded elevation grid (~272 KB base64)
   corridor.js            grid decode, traced channel, event timeline
   scene.js               renderer, the void, the sky probe
   terrain.js              the corridor block, its cut face and base
@@ -100,7 +104,7 @@ Module dependencies run one way: `util` and `state` depend on nothing; `corridor
 
 ## What the model is, and is not
 
-Timing is anchored to the one sourced figure: the traced chainage to the Rasuwagadhi confluence is 21.78 km, and setting the front to arrive there at the reported ~7 minutes gives 54.5 m/s — which independently reproduces the separately reported "first ~22 km at approximately 193 km/h".
+Timing is anchored to sourced figures at both ends of the reach. The traced chainage to the Rasuwagadhi confluence is 21.51 km · 13.4 mi, and setting the front to arrive there at the reported ~7 minutes gives 53.8 m/s · 120 mph — which independently reproduces the separately reported "first ~22 km at approximately 193 km/h". Downstream celerity used to be a free assumption; extending the model into Dhading brought a second sourced timing inside reach — Muglin is reported passed by 13:00 NPT — and 8.8 m/s · 20 mph is what puts the front there at that time. Peak stage is likewise anchored: its exponential decay is set by the reported ~9 m · 30 ft rise at Galchhi, which the model reproduces at that chainage.
 
 Everything else is modelled and labelled as such, in the page's own sources panel and in `.verification/README.md`. The flow solver is a reduced GPU transport around prescribed hydrographs, **not** a conservative shallow-water model, and it cannot establish site-specific inundation. It should not be used for hazard planning or attribution.
 

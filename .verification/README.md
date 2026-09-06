@@ -14,8 +14,11 @@ A five-section page:
 
 ## What changed from the previous build
 
-- **The map is a corridor now, not a rectangle.** Terrain exists only within 4.2 km of the traced channel; everything else is gone. The elevation grid was re-baked in corridor space (1024 × 224, ≈91 m along the channel, ≈38 m across) which cut the embedded payload from 757 KB to **186 KB** and the whole file from 905 KB to 333 KB.
-- **Roughly 2.5× fewer triangles.** 355–470 k across both passes (depth prepass plus beauty pass), against 1.15 M before.
+- **The reach now runs to Dhading.** The model covered 93.08 km and stopped at Devighat; it now covers **141.22 km · 87.75 mi**, past Galchhi, Krishnabhir and Malekhu to Benighat at the Budhi Gandaki confluence. The DEM was re-extracted over a wider box and the corridor grid re-baked at 1536 × 224 (≈92 m along the channel, ≈38 m across), taking the embedded payload from 186 KB to **272 KB**.
+- **Two of the model’s free parameters became constrained.** Extending the reach brought two further sourced figures inside it. Downstream celerity is now set by the reported 13:00 NPT passage at Muglin rather than assumed, and peak-stage decay is set by the reported ~9 m rise at Galchhi — which now falls at a real chainage in the block (103.19 km) instead of beyond its edge.
+- **Every distance is shown in both unit systems.** SI first, US customary second, from a single conversion helper: HUD readouts, the scale bar, the corridor map ticks, the kilometre marks in the scene, the sources panel and the prose.
+- **The map is a corridor, not a rectangle.** Terrain exists only within 4.2 km of the traced channel; everything else is gone.
+- **Triangle counts** run 536–606 k across both passes (depth prepass plus beauty pass) over the longer reach.
 - **The loop does nothing while the model is off screen.** An IntersectionObserver halts the render entirely when you scroll away, which is the single biggest thing separating smooth from laggy on a page you scroll through.
 - **Device pixel ratio is capped** at 1.0 / 1.25 / 1.75 by quality tier, and the quality selector now genuinely drives the flow-solver resolution, sprite count, LOD error budget and triangle budget. Default is Balanced.
 - The mesh is still built in **world space** while its heights come from the corridor grid — a corridor-space mesh folds through itself on any bend tighter than its own half-width, and this valley has bends of 540 m. The cut edge is clipped in the fragment shader so it is pixel-accurate rather than quantised to the cell size.
@@ -26,19 +29,19 @@ A five-section page:
 - **There is no payment QR.** An earlier draft embedded one; it was removed. The support section now links directly to `https://pmdrf.nchl.com.np/` — the Prime Minister Disaster Relief Fund portal, operated for the Government of Nepal by Nepal Clearing House Limited — as plain text and a plain link. A payment code that cannot be independently verified could send real money to the wrong place; a link the user can read before clicking has no such risk.
 - **Cut edge / base plate is off by default.** The layer still exists and can be toggled on in the Layers panel — it is what makes the model read as a bounded slab rather than a naturally eroding valley — but it is not shown on first load.
 
-## Checked 5 September 2026
+## Checked 6 September 2026
 
 Headless Brave/Chromium at 1440 × 900, DPR 1, NVIDIA RTX 3050 Ti Laptop GPU. Output in `verification.json`; `node .verification/verify.cjs` from the project root reruns it.
 
 - No JavaScript or shader console errors.
 - Ready in about 5–7 s on the Vite dev server, most of which is shader compilation and decoding the embedded elevation grid. The hero, the flat map, the article and the donation panel render immediately and do not wait for the model.
 - Zero non-local requests in the Vite build: three.js is resolved from `node_modules`, not a CDN. (`standalone.html`, which has no bundler, fetches a pinned three.js build from jsDelivr instead — that is its one network request.) No terrain, imagery, texture or audio asset request either way.
-- Page structure: 6 toll cards, the flat map, 11 source rows, 9 modelled-assumption rows, both "NOT FOOTAGE" badges, five sections.
+- Page structure: 7 toll cards, the flat map, 13 source rows, 9 modelled-assumption rows, both "NOT FOOTAGE" badges, five sections.
 - Timeline round-trip is exact: for every beat, seeking directly and seeking via reset give bit-identical front position and stage.
-- Arrival/position inverse checks agree at 0, 3, 21.78, 37.1, 60, 81.8 and 93.08 km.
+- Arrival/position inverse checks agree at 0, 3, 21.51, 36.79, 60, 81.81, 103.19 and 141.22 km.
 - Superelevation, read back from the GPU field at the four sharpest bends, is **positive at all four** — the surface stands higher on the geometric outside of the bend, with "outside" determined from centreline positions and no sign convention involved. The largest is 14.9 m at the 614 m-radius bend at 7 km, which matches u²W/(gR) for that bend's inputs. Downstream values fall to 0.4–0.9 m as depth and velocity drop.
 - Orbited through nadir, framed, maximum zoom-out, a human-scale cross-section and near-ground views from all four cardinal directions.
-- Active playback sampled at 78–128 FPS depending on tier, on a discrete GPU at 1440 × 900 in a 16:9 box. **This is not an integrated-GPU guarantee and not a full-loop minimum.**
+- Active playback sampled at 164–165 FPS depending on tier, on a discrete GPU at 1440 × 900 in a 16:9 box. **This is not an integrated-GPU guarantee and not a full-loop minimum.**
 - Forward and backward timeline sweeps, all five camera presets, quality switching, vertical exaggeration, layer toggles, a full-page capture and a 390 × 844 mobile capture. Audio remains off by default and was not listened to.
 
 ## Acceptance gaps
@@ -46,11 +49,11 @@ Headless Brave/Chromium at 1440 × 900, DPR 1, NVIDIA RTX 3050 Ti Laptop GPU. Ou
 This is an explanatory reconstruction, not a calibrated hazard model.
 
 - The GPU solver transports depth, a sediment proxy and speed around **prescribed analytic hydrographs**. It adds centripetal cross-channel tilt, constriction run-up, blockage backwater, junction ponding and bank eddies, with a Manning velocity from the measured bed slope — but it is **not** a conservative 2D shallow-water or debris-rheology model and **cannot establish site-specific inundation**.
-- The grid is posted at ~91 m along the channel and ~38 m across. That resolves the gorge as real landform; everything finer is procedural relief, not measured shape.
+- The grid is posted at ~92 m · 302 ft along the channel and ~38 m · 125 ft across. That resolves the gorge as real landform; everything finer is procedural relief, not measured shape.
 - Settlement and infrastructure placement is schematic, at approximate sites. Structures fade to a removed state with a caption; nothing collapses on screen.
 - Level-of-detail transitions are discrete. Shading is level-independent, but silhouettes still change between levels. Full-loop absence of popping has not been established.
 - The blockage/breach chronology is a **hypothesis** — sources confirm both but publish no times.
-- The reported 9 m rise in 30 minutes belongs to Galchhi, outside this extent, and is assigned to no station shown. Display extent is 93.08 km; reported affected extent is longer.
+- Display extent is 141.22 km · 87.75 mi, ending at Benighat. Reported affected extent is longer still: Muglin, Devghat and the Narayani lie beyond the boundary, and bodies were recovered as far as Chitwan and Nawalparasi.
 - The failure mechanism has no settled consensus. Sources agree it was a rock–ice cascade rather than a glacial lake outburst; whether it was bedrock-first, and what role permafrost thaw played, remain interpretive. The page says so.
 - No human figure, body, occupied vehicle or staged death appears anywhere. Casualty figures appear once, in the hero, as reported figures with source and date.
 

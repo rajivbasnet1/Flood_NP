@@ -183,11 +183,17 @@ const ribbonHalf=s=>clamp(valleyWidth(s)*2.6+180,260,1500);
 // backwards restores depth, debris, deposition, damage and trim line because
 // none of them integrate history.
 // ════════════════════════════════════════════════════════════════════════════
-const S_PORT=21780;        // Rasuwagadhi / Gyirong Port confluence, from the trace
+const S_PORT=21510;        // Rasuwagadhi / Gyirong Port confluence, from the trace
 const T_PORT=420;          // REPORTED ~7 minutes
 const T_IMPACT=20;         // MODELLED entrainment delay
-const C0=S_PORT/(T_PORT-T_IMPACT);   // 54.5 m/s, consistent with the reported ~193 km/h
-const C1=8.5, LTAP=3500;
+const C0=S_PORT/(T_PORT-T_IMPACT);   // 53.8 m/s, consistent with the reported ~193 km/h
+// Downstream celerity. This used to be a pure assumption; extending the model
+// into Dhading brought a second sourced timing inside reach, so it is now
+// constrained rather than guessed. Muglin is reported passed by 13:00 NPT,
+// 4 h 23 m after the 08:37 collapse. Muglin sits about 18 km of channel beyond
+// this block's western edge (a MODELLED extrapolation of the traced line), and
+// 8.8 m/s is the value that puts the front there at that time.
+const C1=8.8, LTAP=3500;
 const T_BLOCK=120, T_BREACH=480, T_WIDEN=300;
 
 function arrival(s){
@@ -211,9 +217,15 @@ function frontAt(t){
  }
  return clamp(s,0,LENGTH);
 }
+// Peak stage above normal monsoon level. Attenuation downstream is
+// exponential, which is the shape a spreading flood wave actually takes, and
+// the length scale is no longer free: extending the model into Dhading put the
+// reported ~9 m rise at Galchhi (chainage 103.2 km) inside the block, and
+// 28.7 km is the decay constant that reproduces it while still leaving the
+// upper gorges in the reported 'tens of metres'.
 function peak(s){
  s=clamp(s,0,LENGTH);
- return s<6000?lerp(20,66,s/6000):lerp(66,10,Math.pow((s-6000)/(LENGTH-6000),.62));
+ return s<6000?lerp(20,66,s/6000):7+59*Math.exp(-(s-6000)/28700);
 }
 function stageAt(s,t){
  const rise=lerp(6,900,Math.pow(s/LENGTH,2)), decay=lerp(400,2600,s/LENGTH);
@@ -236,7 +248,7 @@ const timelineGLSL=`
   if(s<=S_PORT) return C0;
   return 1./(1./C1+(1./C0-1./C1)*exp(-(s-S_PORT)/LTAP));}
  float peakStage(float s){s=clamp(s,0.,LEN);
-  return s<6000.?mix(20.,66.,s/6000.):mix(66.,10.,pow((s-6000.)/(LEN-6000.),.62));}
+  return s<6000.?mix(20.,66.,s/6000.):7.+59.*exp(-(s-6000.)/28700.);}
  float stageAt(float s,float t){
   float rise=mix(6.,900.,pow(s/LEN,2.)), decay=mix(400.,2600.,s/LEN);
   float a1=t-arrival(s);
@@ -262,10 +274,13 @@ function buildBeats(){
   {t:300,label:'Impoundment',note:'A short-lived lake fills behind the barrier',sourced:false},
   {t:T_PORT,label:'Border',note:'Front reaches Gyirong Port / Rasuwagadhi, ~7 min',sourced:true},
   {t:T_BREACH,label:'Breach',note:'Overtopping notch incises and widens; second pulse',sourced:false},
-  {t:Math.round(arrival(24500)),label:'Timure',note:'Confined bedrock reach',sourced:false},
-  {t:Math.round(arrival(37100)),label:'Syafrubesi',note:'Bhote Koshi / Trishuli gorge',sourced:false},
-  {t:Math.round(arrival(68940)),label:'Betrawati',note:'Valley widens; the front spreads and slows',sourced:false},
-  {t:Math.round(arrival(81800)),label:'Devighat',note:'Braided gravel-bed reach',sourced:false},
+  {t:Math.round(arrival(23960)),label:'Timure',note:'Confined bedrock reach',sourced:false},
+  {t:Math.round(arrival(36790)),label:'Syafrubesi',note:'Bhote Koshi / Trishuli gorge',sourced:false},
+  {t:Math.round(arrival(68850)),label:'Betrawati',note:'Valley widens; the front spreads and slows',sourced:false},
+  {t:Math.round(arrival(81810)),label:'Devighat',note:'Braided gravel-bed reach',sourced:false},
+  {t:Math.round(arrival(103190)),label:'Galchhi',note:'Dhading · a rise of about 9 m in 30 minutes was reported here',sourced:true},
+  {t:Math.round(arrival(118000)),label:'Krishnabhir',note:'Prithvi Highway sank into the river; Kathmandu–Pokhara link severed',sourced:true},
+  {t:Math.round(arrival(132270)),label:'Benighat',note:'Budhi Gandaki confluence; the Trishuli runs on to Muglin',sourced:false},
   {t:Math.round(arrival(LENGTH))+900,label:'Recession',note:'Deposition, trim line, changed valley',sourced:false},
  ];
 }

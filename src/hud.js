@@ -4,7 +4,7 @@
 // have to guess which numbers were measured and which were assumed.
 // ═══════════════════════════════════════════════════════════════════════════
 import * as THREE from 'three';
-import { $, clamp, lerp, DEG, smooth } from './util.js';
+import { $, clamp, lerp, DEG, smooth, fmtKm, fmtM, fmtSpeed } from './util.js';
 import {
   CORR, LENGTH, station, stationInto, groundSD, bed, valleyWidth, curvature,
   arrival, celerity, peak, stageAt, frontAt, formatTime, BEATS,
@@ -69,10 +69,10 @@ function updateHUD(t){
  $('place').textContent=place.name;
  $('subplace').textContent=place.sub;
  $('hTime').textContent=formatTime(t);
- $('hDist').textContent=(s/1000).toFixed(1)+' km';
- $('hElev').textContent=Math.round(bed(s)).toLocaleString()+' m';
- $('hDepth').textContent=(t<=0?'— m':Math.round(peak(s))+' m');
- $('hSpeed').textContent=(t<=T_IMPACT||s>=LENGTH?'— m/s':celerity(s).toFixed(1)+' m/s');
+ $('hDist').textContent=fmtKm(s);
+ $('hElev').textContent=fmtM(bed(s));
+ $('hDepth').textContent=(t<=0?'—':fmtM(peak(s)));
+ $('hSpeed').textContent=(t<=T_IMPACT||s>=LENGTH?'—':fmtSpeed(celerity(s)));
  // The 7-minute arrival is the one sourced timing; flag it as such.
  const sourcedNow=Math.abs(t-T_PORT)<45;
  $('hSpeed').className='v mono '+(sourcedNow?'sourced':'modelled');
@@ -87,7 +87,7 @@ function updateHUD(t){
  const targetPx=88, rawM=mpp*targetPx;
  const pow=Math.pow(10,Math.floor(Math.log10(rawM)));
  const nice=[1,2,5,10].map(n=>n*pow).reduce((a,b)=>Math.abs(b-rawM)<Math.abs(a-rawM)?b:a);
- $('scaleText').textContent=nice>=1000?(nice/1000)+' km':nice+' m';
+ $('scaleText').textContent=nice>=1000?fmtKm(nice,nice>=5000?0:1):fmtM(nice);
  $('scaleLine').style.width=(nice/mpp).toFixed(0)+'px';
 }
 function syncTransport(){
@@ -130,9 +130,9 @@ function buildLabels(){
   labelLayer.appendChild(el);
   labelEls.push({el,place:p});
  }
- for(let km=0;km<=Math.floor(LENGTH/1000);km+=5){
+ for(let km=0;km<=Math.floor(LENGTH/1000);km+=10){
   const el=document.createElement('div');
-  el.className='lab km'; el.textContent=km+' km';
+  el.className='lab km'; el.textContent=km+' km · '+Math.round(km*1000/1609.344)+' mi';
   labelLayer.appendChild(el);
   kmEls.push({el,s:km*1000});
  }
@@ -172,8 +172,14 @@ function updateLabels(){
    if(Math.abs(q.x-sp.x)<(half+q.half+10)&&Math.abs(q.y-sp.y)<16){op=0;break;}
   }
   if(op>0.04){
-   placed.push({x:sp.x,y:sp.y,half});
-   entry.el.style.transform=`translate(-50%,-50%) translate(${sp.x.toFixed(1)}px,${sp.y.toFixed(1)}px)`;
+   // Labels are centred on their station, so one near an edge would hang half
+   // its width outside the box and be clipped. Slide it back inside instead:
+   // over a 141 km corridor the far ends sit against the frame constantly.
+   const hh=(entry.el.offsetHeight||14)/2;
+   const lx=clamp(sp.x,half+6,Math.max(half+6,stage.clientWidth-half-6));
+   const ly=clamp(sp.y,hh+4,Math.max(hh+4,stage.clientHeight-hh-4));
+   placed.push({x:lx,y:ly,half});
+   entry.el.style.transform=`translate(-50%,-50%) translate(${lx.toFixed(1)}px,${ly.toFixed(1)}px)`;
   }
   entry.el.style.opacity=op.toFixed(3);
  };
@@ -244,9 +250,9 @@ function drawInspector(){
  drawChart('curves',[
   {color:'#e8bc80',fn:peak,max:70,name:'peak stage (m), max 70'},
   {color:'#9fdcc4',fn:celerity,max:60,name:'celerity (m/s), max 60'},
- ],LENGTH,'chainage 0 → 93.1 km');
- drawChart('widths',[{color:'#9ec7dd',fn:valleyWidth,max:1800,name:'half-width at bed+30 m, max 1800'}],LENGTH,'chainage 0 → 93.1 km');
- drawChart('profile',[{color:'#e6ecef',fn:bed,max:4400,name:'bed elevation (m), max 4400'}],LENGTH,'chainage 0 → 93.1 km');
+ ],LENGTH,'chainage 0 → 141.2 km · 87.8 mi');
+ drawChart('widths',[{color:'#9ec7dd',fn:valleyWidth,max:1800,name:'half-width at bed+30 m, max 1800'}],LENGTH,'chainage 0 → 141.2 km · 87.8 mi');
+ drawChart('profile',[{color:'#e6ecef',fn:bed,max:4400,name:'bed elevation (m), max 4400'}],LENGTH,'chainage 0 → 141.2 km · 87.8 mi');
  // Cross-section readback: is the water genuinely higher on the outside of the
  // bend? Read straight off the GPU field rather than trusting the eye.
  const rows=[];

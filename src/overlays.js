@@ -17,28 +17,33 @@ import { dummy, EPS, hideInstance, safeScale } from './flow.js';
 // come from a gazetteer are marked; the rest are channel positions.
 // ════════════════════════════════════════════════════════════════════════════
 const PLACES=[
- {s:0,     name:'Langtang Lirung · north flank', sub:'Failure scar · 28.2853° N, 85.5252° E', kind:'site'},
- {s:5400,  name:'Lhende Khola · temporary blockage', sub:'Debris dam and impoundment · timing modelled', kind:'site'},
- {s:21780, name:'Gyirong Port / Rasuwagadhi', sub:'Trishuli–Lhende confluence · border crossing', kind:'town'},
- {s:24500, name:'Timure', sub:'Confined bedrock reach', kind:'town'},
- {s:27400, name:'Rasuwagadhi hydropower', sub:'Schematic massing at an approximate site', kind:'infra'},
- {s:37100, name:'Syafrubesi', sub:'Bhote Koshi / Trishuli gorge', kind:'town'},
- {s:52000, name:'Mailung reach', sub:'Confined gorge', kind:'town'},
- {s:68940, name:'Betrawati', sub:'Valley widens; braided gravel bed begins', kind:'town'},
- {s:76200, name:'Trishuli Bazaar', sub:'27.9227° N, 85.1462° E (gazetteer)', kind:'town'},
- {s:81800, name:'Devighat', sub:'27.8882° N, 85.1340° E (gazetteer)', kind:'infra'},
- {s:84500, name:'Bidur', sub:'Town centre sits back from the channel', kind:'town'},
- {s:93080, name:'Model boundary', sub:'The block ends here — no terrain beyond', kind:'edge'},
-];
-const INFRA=[
- {s:21780,name:'Border crossing & customs',type:'bridge'},
+ {s:0,      name:'Langtang Lirung · north flank', sub:'Failure scar · 28.2853° N, 85.5252° E', kind:'site'},
+ {s:5400,   name:'Lhende Khola · temporary blockage', sub:'Debris dam and impoundment · timing modelled', kind:'site'},
+ {s:21510,  name:'Gyirong Port / Rasuwagadhi', sub:'Trishuli–Lhende confluence · border crossing', kind:'town'},
+ {s:23960,  name:'Timure', sub:'Confined bedrock reach', kind:'town'},
+ {s:27400,  name:'Rasuwagadhi hydropower', sub:'Schematic massing at an approximate site', kind:'infra'},
+ {s:36790,  name:'Syafrubesi', sub:'Bhote Koshi / Trishuli gorge', kind:'town'},
+ {s:52000,  name:'Mailung reach', sub:'Confined gorge', kind:'town'},
+ {s:68850,  name:'Betrawati', sub:'Valley widens; braided gravel bed begins', kind:'town'},
+ {s:76620,  name:'Trishuli Bazaar', sub:'27.9227° N, 85.1462° E (gazetteer)', kind:'town'},
+ {s:81810,  name:'Devighat', sub:'27.8882° N, 85.1340° E (gazetteer)', kind:'infra'},
+ {s:84500,  name:'Bidur', sub:'Town centre sits back from the channel', kind:'town'},
+ {s:103190, name:'Galchhi · Dhading', sub:'27.7959° N, 85.0003° E · ~9 m rise reported in 30 minutes', kind:'town'},
+ {s:118000, name:'Krishnabhir · Benighat Rorang', sub:'Prithvi Highway sank into the river here', kind:'infra'},
+ {s:124600, name:'Malekhu · Dhading', sub:'27.8097° N, 84.8290° E (gazetteer)', kind:'town'},
+ {s:132270, name:'Benighat · Dhading', sub:'27.8167° N, 84.7833° E · Budhi Gandaki confluence', kind:'town'},
+ {s:141223, name:'Model boundary', sub:'The block ends here — Muglin and Devghat lie beyond', kind:'edge'},
+];const INFRA=[
+ {s:21510,name:'Border crossing & customs',type:'bridge'},
  {s:27400,name:'Rasuwagadhi hydropower',type:'power'},
- {s:37100,name:'Road bridge',type:'bridge'},
+ {s:36790,name:'Road bridge',type:'bridge'},
  {s:52000,name:'Suspension bridge',type:'bridge'},
- {s:76200,name:'Trishuli intake',type:'power'},
- {s:81800,name:'Devighat powerhouse',type:'power'},
+ {s:76620,name:'Trishuli intake',type:'power'},
+ {s:81810,name:'Devighat powerhouse',type:'power'},
+ {s:103190,name:'Galchhi road bridge',type:'bridge'},
+ {s:118000,name:'Prithvi Highway · Krishnabhir',type:'bridge'},
+ {s:132270,name:'Benighat bridge',type:'bridge'},
 ];
-
 // ════════════════════════════════════════════════════════════════════════════
 // SECTION 15 — BUILT ENVIRONMENT AND VEGETATION
 // Neutral, diagrammatic massing. These exist to show what was in the flow path

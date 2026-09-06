@@ -22,22 +22,26 @@ const SOURCES=[
   status:'EXPERT INTERPRETATION · NO CONSENSUS',date:'2026-09-02',name:'The Conversation',url:'https://theconversation.com/the-collapse-of-a-mountainside-triggered-nepals-devastating-floods-as-the-regions-mountains-heat-up-it-wont-be-the-last-290924'},
  {figure:'Affected settlements along the corridor included Timure, Dhunche, Mailung, Syafrubesi, Betrawati, Trishuli and Devighat. Rasuwa district accounts for 140 bodies. Bodies were also recovered along the Trishuli and Narayani in Nuwakot, Dhading, Gorkha, Tanahu, Chitwan and both Nawalparasi districts. No village-by-village casualty breakdown has been published.',
   status:'REPORTED · NO PER-PLACE BREAKDOWN',date:'2026-08-27',name:'Al Jazeera',url:'https://www.aljazeera.com/news/2026/8/27/nepal-tibet-floods-what-happened-what-caused-them-and-who-is-missing'},
- {figure:'Elevation grid: AWS Terrain Tiles (terrarium), zoom 12, public domain, derived from SRTM, ALOS AW3D30 and national datasets. Sampled into a corridor-space grid of 1024 × 224 covering 93.08 km of channel and ±4,200 m either side (≈91 m along, ≈38 m across), quantised to 3 m, deflated, embedded as base64 and decoded in the browser. No imagery of any kind.',
+ {figure:'Elevation grid: AWS Terrain Tiles (terrarium), zoom 12, public domain, derived from SRTM, ALOS AW3D30 and national datasets. Sampled into a corridor-space grid of 1536 × 224 covering 141.22 km · 87.75 mi of channel and ±4,200 m · ±2.6 mi either side (≈92 m · 302 ft along, ≈38 m · 125 ft across), quantised to 3 m, deflated, embedded as base64 and decoded in the browser. No imagery of any kind.',
   status:'DATASET · PUBLIC DOMAIN',date:'2026-09-05',name:'AWS Terrain Tiles / Mapzen',url:'https://registry.opendata.aws/terrain-tiles/'},
- {figure:'Channel centreline: traced through the grid by priority-flood depression filling and D8 steepest descent from the scar, 93.08 km to the box edge. Independent check — the traced confluence at Rasuwagadhi falls 29 m from its published coordinate, Syafrubesi 115 m, Betrawati 113 m, Devighat about 300 m.',
+ {figure:'Channel centreline: traced through the grid by priority-flood depression filling and D8 steepest descent from the scar, 141.22 km · 87.75 mi to the box edge, ending in Dhading district. Independent check against published coordinates — Rasuwagadhi 23 m, Syafrubesi 67 m, Betrawati 82 m, Devighat 127 m, Trishuli Bazaar 206 m, Galchhi 645 m, Malekhu 584 m, Benighat 300 m.',
   status:'DERIVED FROM THE GRID',date:'2026-09-05',name:'Computed in this build',url:''},
+ {figure:'Dhading district: 45 dead as of 29 August 2026. The Prithvi Highway sank into the river at Krishnabhir in Benighat Rorang rural municipality, severing the Kathmandu–Pokhara road link. Settlements along the Trishuli through Galchhi, Malekhu and Benighat were inundated.',
+  status:'REPORTED',date:'2026-08-29',name:'Wikipedia · 2026 Nepal–Tibet floods',url:'https://en.wikipedia.org/wiki/2026_Nepal_floods'},
+ {figure:'The flood front is reported to have passed Muglin by 13:00 NPT — 4 h 23 m after the 08:37 collapse. At Devghat on the Narayani the river stood at 4.76 m (15.6 ft) at 13:30 and peaked at 6.57 m (21.6 ft) at 16:00. A rise of about 9 m (30 ft) in 30 minutes was reported at Galchhi in Dhading.',
+  status:'REPORTED',date:'2026-08-27',name:'Wikipedia · 2026 Nepal–Tibet floods',url:'https://en.wikipedia.org/wiki/2026_Nepal_floods'},
  {figure:'Prime Minister Disaster Relief Fund portal, operated for the Government of Nepal by Nepal Clearing House Limited. Linked from this page as the official donation channel; no payment code is reproduced here.',
   status:'OFFICIAL CHANNEL',date:'2026-09-05',name:'Government of Nepal · PMDRF',url:'https://pmdrf.nchl.com.np/'},
 ];
 const MODELLED=[
- ['Front timing','Front celerity 54.5 m/s to chainage 21.78 km, set so the front reaches the Rasuwagadhi confluence at the reported ~7 minutes; then an exponential relaxation (3.5 km length scale) to 8.5 m/s downstream. Arrival everywhere else follows from that, not from a gauge.'],
- ['Peak stage','20 m at the scar rising to 66 m through the first 6 km of entrainment, decaying to about 10 m at 93 km. The upper value sits inside the reported "tens of metres" in the gorges. No stage was measured for this model.'],
+ ['Front timing','Front celerity 53.8 m/s · 120 mph to chainage 21.51 km · 13.4 mi, set so the front reaches the Rasuwagadhi confluence at the reported ~7 minutes; then an exponential relaxation (3.5 km length scale) to 8.8 m/s · 20 mph downstream. That second value is now constrained rather than assumed: Muglin is reported passed by 13:00 NPT, and 8.8 m/s is what puts the front there at that time.'],
+ ['Peak stage','20 m · 66 ft at the scar rising to 66 m · 217 ft through the first 6 km · 3.7 mi of entrainment, then decaying exponentially with a 28.7 km · 17.8 mi length scale to about 7.5 m · 25 ft at the boundary. The decay is anchored to the reported ~9 m · 30 ft rise at Galchhi, which the model reproduces at its chainage of 103.19 km · 64.1 mi. The upper value sits inside the reported "tens of metres" in the gorges.'],
  ['Blockage & breach','Blockage grows T+120 s to T+240 s; impoundment fills to T+480 s; breach incises and widens over 300 s, launching a second pulse. Sources confirm a blockage and a breach but publish no times. This chronology is a hypothesis.'],
- ['Collapse','3 × 10⁶ m³ failure volume, ice mass fraction 0.35, frictional melt efficiency 0.35 over a 1,200 m fall — which converts under 5% of the ice, not "a large fraction". Fragment paths are deterministic ballistics, not granular-flow simulation.'],
+ ['Collapse','3 × 10⁶ m³ · 3.9 × 10⁶ yd³ failure volume, ice mass fraction 0.35, frictional melt efficiency 0.35 over a 1,200 m · 3,940 ft fall — which converts under 5% of the ice, not "a large fraction". Fragment paths are deterministic ballistics, not granular-flow simulation.'],
  ['Flow solver','A reduced GPU transport of depth, sediment proxy and speed around prescribed analytic hydrographs, with centripetal cross-channel tilt, constriction run-up, junction backwater and eddy slack, and a Manning velocity from the measured bed slope. NOT a conservative 2D shallow-water or debris-rheology model; it cannot establish site-specific inundation.'],
  ['Map dots','The red markers show settlements and sites that lay in the flow path. They are not scaled to casualties and carry no per-place death count, because none has been published.'],
  ['Deposition & damage','Sediment fans, trim line, vegetation stripping and structure exposure follow from modelled stage against grid elevation. Structures are neutral massing at approximate sites, not surveyed footprints.'],
- ['Display extent','93.08 km of traced channel, clipped to ±4.2 km either side. Reported affected extent is longer (~100 km), and bodies were recovered far beyond it. The reported 9 m rise in 30 minutes belongs to Galchhi, outside this extent, and is not assigned to any station shown.'],
+ ['Display extent','141.22 km · 87.75 mi of traced channel, clipped to ±4.2 km · ±2.6 mi either side, reaching Benighat in Dhading district. Reported affected extent is longer still — Muglin, Devghat and the Narayani lie beyond the boundary, and bodies were recovered as far as Chitwan and Nawalparasi.'],
  ['Everything else','All colour, texture, noise, sky, fog, particle, vegetation and camera behaviour is procedural. No satellite or aerial imagery, no HDRI, no downloaded model, texture or audio file.'],
 ];
 // Reported toll, shown once, with the source and date attached to each figure.
@@ -48,6 +52,7 @@ const TOLL=[
  {n:'5,300',k:'Reported injured',src:'Nepal, as of 5 Sep 2026'},
  {n:'8,317',k:'Houses destroyed',src:'Nepal, preliminary'},
  {n:'Rs 387.5bn',k:'Preliminary damage',src:'≈ US$2.57 bn, as of 4 Sep 2026'},
+ {n:'45',k:'Reported dead · Dhading',src:'as of 29 Aug 2026',red:true},
 ];
 
 export { SOURCES, MODELLED, TOLL };

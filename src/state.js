@@ -6,7 +6,9 @@ export const S = {
   quality: 'balanced', onScreen: true, spraysOn: true, spriteBudget: 520,
   forceFrame: true, resetFlow: true, fps: 0,
 };
-export const END = 14400;
+// Runs to 6 h. The front reaches the 141.22 km boundary at about 3 h 48 m;
+// the rest is recession, deposition and the trim line settling.
+export const END = 21600;
 export const QUALITY = {
   high:     { lod: 2.6, tri: 340000, flow: [1024, 96], sprites: 820, dpr: 1.75 },
   balanced: { lod: 3.4, tri: 240000, flow: [768, 64],  sprites: 520, dpr: 1.25 },

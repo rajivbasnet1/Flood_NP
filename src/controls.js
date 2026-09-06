@@ -120,7 +120,7 @@ function poseAt(s,{dist,el,height=0}){
 let PRESETS=[];
 function buildPresets(){
  PRESETS=[
-  {key:'1',name:'Whole corridor',note:'93 km in one frame',
+  {key:'1',name:'Whole corridor',note:'141 km · 88 mi in one frame',
    pose:()=>({target:new THREE.Vector3(0,1200,0),az:DEG(214),el:DEG(46),dist:52000})},
   {key:'2',name:'Failure scar',note:'the source',
    pose:()=>poseAt(1400,{dist:9500,el:34,height:900})},
@@ -130,6 +130,8 @@ function buildPresets(){
    pose:()=>poseAt(S_PORT,{dist:6200,el:27,height:420})},
   {key:'5',name:'Valley floor · Bidur',note:'human scale',
    pose:()=>poseAt(84500,{dist:2400,el:13,height:120})},
+  {key:'6',name:'Galchhi · Dhading',note:'~9 m rise reported in 30 min',
+   pose:()=>poseAt(103190,{dist:7000,el:24,height:420})},
  ];
  const list=$('presetList');
  PRESETS.forEach((p,i)=>{
