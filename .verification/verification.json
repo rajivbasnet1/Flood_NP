@@ -1,0 +1,520 @@
+{
+ "loadMs": 7488,
+ "errors": [],
+ "requests": 31,
+ "nonCdnRequests": [],
+ "pageParts": {
+  "tollCards": 6,
+  "mapNodes": 56,
+  "supportLink": "https://pmdrf.nchl.com.np/",
+  "heroCanvas": true,
+  "sourceRows": 11,
+  "modelRows": 9,
+  "badges": 2,
+  "sections": [
+   "hero",
+   "toll",
+   "model",
+   "future",
+   "give"
+  ]
+ },
+ "numeric": [
+  {
+   "s": 0,
+   "bed": 4335,
+   "width": 240,
+   "peak": 20,
+   "celerity": 54.45,
+   "arrival": 20,
+   "inverse": 0
+  },
+  {
+   "s": 3000,
+   "bed": 3515,
+   "width": 115,
+   "peak": 43,
+   "celerity": 54.45,
+   "arrival": 75.1,
+   "inverse": 3000
+  },
+  {
+   "s": 21780,
+   "bed": 1824,
+   "width": 120,
+   "peak": 46.6,
+   "celerity": 54.45,
+   "arrival": 420,
+   "inverse": 21780
+  },
+  {
+   "s": 37100,
+   "bed": 1423,
+   "width": 105,
+   "peak": 36.4,
+   "celerity": 8.59,
+   "arrival": 1879.2,
+   "inverse": 37100
+  },
+  {
+   "s": 60000,
+   "bed": 761,
+   "width": 106,
+   "peak": 24.4,
+   "celerity": 8.5,
+   "arrival": 4569,
+   "inverse": 60000
+  },
+  {
+   "s": 81800,
+   "bed": 490,
+   "width": 213,
+   "peak": 14.6,
+   "celerity": 8.5,
+   "arrival": 7133.7,
+   "inverse": 81800
+  },
+  {
+   "s": 93080,
+   "bed": 435,
+   "width": 375,
+   "peak": 10,
+   "celerity": 8.5,
+   "arrival": 8460.7,
+   "inverse": 93080
+  }
+ ],
+ "beatCheck": [
+  {
+   "label": "Pre-event",
+   "frontMatch": true,
+   "stageMatch": true
+  },
+  {
+   "label": "Collapse",
+   "frontMatch": true,
+   "stageMatch": true
+  },
+  {
+   "label": "Impact",
+   "frontMatch": true,
+   "stageMatch": true
+  },
+  {
+   "label": "Blockage",
+   "frontMatch": true,
+   "stageMatch": true
+  },
+  {
+   "label": "Impoundment",
+   "frontMatch": true,
+   "stageMatch": true
+  },
+  {
+   "label": "Border",
+   "frontMatch": true,
+   "stageMatch": true
+  },
+  {
+   "label": "Breach",
+   "frontMatch": true,
+   "stageMatch": true
+  },
+  {
+   "label": "Timure",
+   "frontMatch": true,
+   "stageMatch": true
+  },
+  {
+   "label": "Syafrubesi",
+   "frontMatch": true,
+   "stageMatch": true
+  },
+  {
+   "label": "Betrawati",
+   "frontMatch": true,
+   "stageMatch": true
+  },
+  {
+   "label": "Devighat",
+   "frontMatch": true,
+   "stageMatch": true
+  },
+  {
+   "label": "Recession",
+   "frontMatch": true,
+   "stageMatch": true
+  }
+ ],
+ "sections": [
+  {
+   "s": 77994,
+   "bendRadius": 542,
+   "outerMinusInner": 0.56,
+   "maxDepth": 4.87
+  },
+  {
+   "s": 7090,
+   "bendRadius": 614,
+   "outerMinusInner": 13.63,
+   "maxDepth": 62.28
+  },
+  {
+   "s": 68177,
+   "bendRadius": 722,
+   "outerMinusInner": 0.84,
+   "maxDepth": 6.39
+  },
+  {
+   "s": 61753,
+   "bendRadius": 739,
+   "outerMinusInner": 0.44,
+   "maxDepth": 6.99
+  }
+ ],
+ "orbit": [
+  {
+   "name": "nadir",
+   "triangles": 468819,
+   "calls": 254
+  },
+  {
+   "name": "low-north",
+   "triangles": 388191,
+   "calls": 48
+  },
+  {
+   "name": "low-south",
+   "triangles": 370851,
+   "calls": 44
+  },
+  {
+   "name": "low-east",
+   "triangles": 388099,
+   "calls": 50
+  },
+  {
+   "name": "low-west",
+   "triangles": 388099,
+   "calls": 50
+  },
+  {
+   "name": "framed",
+   "triangles": 468639,
+   "calls": 252
+  },
+  {
+   "name": "max-out",
+   "triangles": 381659,
+   "calls": 254
+  },
+  {
+   "name": "cross-section",
+   "triangles": 370851,
+   "calls": 44
+  }
+ ],
+ "states": [
+  {
+   "time": -30,
+   "front": 0,
+   "bed": 4335,
+   "peak": 20,
+   "celerity": 54.45,
+   "arrival": 20,
+   "stage": 0,
+   "fps": 160,
+   "onScreen": true,
+   "camera": {
+    "az": 3.734921621065264,
+    "el": 0.8019801847900792,
+    "dist": 51686.3159652345,
+    "target": [
+     0,
+     1200,
+     0
+    ]
+   },
+   "triangles": 467371,
+   "calls": 246
+  },
+  {
+   "time": 10,
+   "front": 0,
+   "bed": 4335,
+   "peak": 20,
+   "celerity": 54.45,
+   "arrival": 20,
+   "stage": 0,
+   "fps": 150,
+   "onScreen": true,
+   "camera": {
+    "az": 3.735004140023142,
+    "el": 0.8028466338478029,
+    "dist": 51998.258680292674,
+    "target": [
+     0,
+     1200,
+     0
+    ]
+   },
+   "triangles": 478319,
+   "calls": 250
+  },
+  {
+   "time": 200,
+   "front": 9801,
+   "bed": 2628.4633234497874,
+   "peak": 57.965424848247295,
+   "celerity": 54.45,
+   "arrival": 200,
+   "stage": 0,
+   "fps": 150,
+   "onScreen": true,
+   "camera": {
+    "az": 3.735004596737577,
+    "el": 0.8028514293493648,
+    "dist": 51999.99040573804,
+    "target": [
+     0,
+     1200,
+     0
+    ]
+   },
+   "triangles": 468639,
+   "calls": 252
+  },
+  {
+   "time": 480,
+   "front": 23366.55709516329,
+   "bed": 1761.1387158177772,
+   "peak": 45.39138766870507,
+   "celerity": 18.331464955223698,
+   "arrival": 480.00438235957597,
+   "stage": 0,
+   "fps": 164,
+   "onScreen": true,
+   "camera": {
+    "az": 3.735004599253369,
+    "el": 0.8028514557651889,
+    "dist": 51999.99994503644,
+    "target": [
+     0,
+     1200,
+     0
+    ]
+   },
+   "triangles": 468639,
+   "calls": 252
+  },
+  {
+   "time": 900,
+   "front": 28363.366182035003,
+   "bed": 1638,
+   "peak": 41.8932154378346,
+   "celerity": 9.754933222082409,
+   "arrival": 900.0000036283682,
+   "stage": 0,
+   "fps": 165,
+   "onScreen": true,
+   "camera": {
+    "az": 3.735004599267782,
+    "el": 0.802851455916514,
+    "dist": 51999.99999968298,
+    "target": [
+     0,
+     1200,
+     0
+    ]
+   },
+   "triangles": 468639,
+   "calls": 252
+  },
+  {
+   "time": 2200,
+   "front": 39846.70085736452,
+   "bed": 1366,
+   "peak": 34.83074867155661,
+   "celerity": 8.541306743117127,
+   "arrival": 2200.000009360201,
+   "stage": 0,
+   "fps": 165,
+   "onScreen": true,
+   "camera": {
+    "az": 3.7350045992678607,
+    "el": 0.8028514559173868,
+    "dist": 51999.99999999829,
+    "target": [
+     0,
+     1200,
+     0
+    ]
+   },
+   "triangles": 468639,
+   "calls": 252
+  },
+  {
+   "time": 6000,
+   "front": 72163.62658046416,
+   "bed": 566,
+   "peak": 18.77084175506762,
+   "celerity": 8.500004016963679,
+   "arrival": 6000.000123953805,
+   "stage": 0,
+   "fps": 164,
+   "onScreen": true,
+   "camera": {
+    "az": 3.7350045992678624,
+    "el": 0.8028514559173908,
+    "dist": 51999.9999999999,
+    "target": [
+     0,
+     1200,
+     0
+    ]
+   },
+   "triangles": 468639,
+   "calls": 252
+  },
+  {
+   "time": 11000,
+   "front": 93084,
+   "bed": 435,
+   "peak": 10,
+   "celerity": 8.500000010186177,
+   "arrival": 8461.220332152281,
+   "stage": 8.441599616306023,
+   "fps": 161,
+   "onScreen": true,
+   "camera": {
+    "az": 3.7350045992678624,
+    "el": 0.8028514559173909,
+    "dist": 51999.99999999993,
+    "target": [
+     0,
+     1200,
+     0
+    ]
+   },
+   "triangles": 468639,
+   "calls": 252
+  }
+ ],
+ "active": {
+  "time": 980.2380000001215,
+  "front": 29134.415571254867,
+  "bed": 1605.9968489716287,
+  "peak": 41.38121994110196,
+  "celerity": 9.478249046171635,
+  "arrival": 980.2380008352053,
+  "stage": 0,
+  "fps": 165,
+  "onScreen": true,
+  "camera": {
+   "az": 2.502396862379193,
+   "el": 0.22689280275926307,
+   "dist": 2400.000000000002,
+   "target": [
+    -16503.547892226343,
+    593.3194104249935,
+    24731.60195092601
+   ]
+  },
+  "triangles": 405979,
+  "calls": 62
+ },
+ "offScreen": {
+  "time": 984.1959999999428,
+  "front": 29171.907452355288,
+  "bed": 1604.6441208905408,
+  "peak": 41.3564911281787,
+  "celerity": 9.466640666895394,
+  "arrival": 984.1960007770363,
+  "stage": 0,
+  "fps": 165,
+  "onScreen": false,
+  "camera": {
+   "az": 2.502396862379192,
+   "el": 0.22689280275926302,
+   "dist": 2400.0000000000014,
+   "target": [
+    -16503.54789222635,
+    593.3194104249932,
+    24731.601950926022
+   ]
+  },
+  "triangles": 405979,
+  "calls": 62
+ },
+ "tiers": {
+  "low": {
+   "time": 1003.8200000000029,
+   "front": 29357.133131486724,
+   "bed": 1595.498647755651,
+   "peak": 41.23454276759554,
+   "celerity": 9.411471589879886,
+   "arrival": 1003.8200005442267,
+   "stage": 0,
+   "fps": 165,
+   "onScreen": true,
+   "camera": {
+    "az": 2.5023968623791917,
+    "el": 0.226892802759263,
+    "dist": 2400.0000000000014,
+    "target": [
+     -16503.547892226354,
+     593.3194104249931,
+     24731.601950926026
+    ]
+   },
+   "triangles": 405459,
+   "calls": 62
+  },
+  "balanced": {
+   "time": 1003.8200000000029,
+   "front": 29357.133131486724,
+   "bed": 1595.498647755651,
+   "peak": 41.23454276759554,
+   "celerity": 9.411471589879886,
+   "arrival": 1003.8200005442267,
+   "stage": 0,
+   "fps": 165,
+   "onScreen": true,
+   "camera": {
+    "az": 2.5023968623791917,
+    "el": 0.226892802759263,
+    "dist": 2400.0000000000014,
+    "target": [
+     -16503.547892226354,
+     593.3194104249931,
+     24731.601950926026
+    ]
+   },
+   "triangles": 405979,
+   "calls": 62
+  },
+  "high": {
+   "time": 1003.8200000000029,
+   "front": 29357.133131486724,
+   "bed": 1595.498647755651,
+   "peak": 41.23454276759554,
+   "celerity": 9.411471589879886,
+   "arrival": 1003.8200005442267,
+   "stage": 0,
+   "fps": 165,
+   "onScreen": true,
+   "camera": {
+    "az": 2.5023968623791917,
+    "el": 0.226892802759263,
+    "dist": 2400.0000000000014,
+    "target": [
+     -16503.547892226354,
+     593.3194104249931,
+     24731.601950926026
+    ]
+   },
+   "triangles": 406579,
+   "calls": 62
+  }
+ }
+}
